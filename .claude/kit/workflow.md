@@ -1,4 +1,4 @@
-# CLAUDE.md — Framework
+# Workflow — claude-engineering-kit
 
 ## Spec-Driven Workflow
 
@@ -27,10 +27,3 @@ Templates em [specs/_TEMPLATE_SPEC.md](specs/_TEMPLATE_SPEC.md) e [specs/tasks/_
   - Novo controller? Leia `ProductController.php`
   - Novo componente Vue? Leia `ListProducts.vue`
   - Nova migration? Leia a última migration existente
-
----
-
-## Specs em Andamento
-
-<!-- Preencha com status atual -->
-
