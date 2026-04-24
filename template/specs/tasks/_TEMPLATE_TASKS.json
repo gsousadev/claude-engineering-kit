@@ -1,0 +1,53 @@
+{
+  "_schema_version": "1.0",
+  "_spec": "specs/SPEC-nome-da-feature.md",
+  "_instructions": "Execute tasks em ordem de dependência. Marque status antes de começar (in-progress) e ao terminar (done). Uma task por vez. Leia apenas os arquivos listados em 'reads' de cada task.",
+  "tasks": [
+    {
+      "id": "feature-01",
+      "title": "Descreva a primeira task",
+      "description": "O que esta task entrega e por quê.",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "model_hint": "haiku",
+      "reads": [
+        "caminho/para/arquivo-de-referencia (como referência de formato)"
+      ],
+      "details": "Descrição detalhada do que implementar. Deve ser auto-suficiente para um modelo que não tem contexto da conversa. Inclua: caminhos exatos, nomes de classe/função, padrões a seguir.",
+      "test_strategy": "Comando exato para verificar que a task foi concluída com sucesso.",
+      "acceptance": [
+        "Critério verificável 1",
+        "Critério verificável 2"
+      ],
+      "subtasks": []
+    },
+    {
+      "id": "feature-02",
+      "title": "Descreva a segunda task",
+      "description": "O que esta task entrega e por quê.",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": ["feature-01"],
+      "model_hint": "haiku",
+      "reads": [
+        "caminho/para/arquivo-criado-na-task-anterior",
+        "caminho/para/arquivo-de-referencia"
+      ],
+      "details": "Descrição detalhada do que implementar.",
+      "test_strategy": "Comando exato para verificar.",
+      "acceptance": [
+        "Critério verificável 1",
+        "Critério verificável 2"
+      ],
+      "subtasks": []
+    }
+  ],
+  "_summary": {
+    "total": 2,
+    "pending": 2,
+    "in_progress": 0,
+    "done": 0,
+    "cancelled": 0
+  }
+}

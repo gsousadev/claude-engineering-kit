@@ -62,6 +62,10 @@ echo "   ✓ .claude/kit/assistant.md"
 cp "$TEMP_KIT/.claude/kit/workflow.md" "$PROJECT_ROOT/.claude/kit/workflow.md"
 echo "   ✓ .claude/kit/workflow.md"
 
+mkdir -p "$PROJECT_ROOT/.claude/kit/commands"
+cp "$TEMP_KIT/.claude/kit/commands/"*.md "$PROJECT_ROOT/.claude/kit/commands/"
+echo "   ✓ .claude/kit/commands/ (templates — não altera .claude/commands/cek/)"
+
 cp "$TEMP_KIT/template/docs/decisions/ADR-TEMPLATE.md" "$PROJECT_ROOT/docs/decisions/ADR-TEMPLATE.md"
 echo "   ✓ docs/decisions/ADR-TEMPLATE.md"
 
@@ -75,6 +79,7 @@ echo "   ⊘ CLAUDE.local.md (preservado — é do projeto)"
 echo "   ⊘ .claudeignore (preservado — é do projeto)"
 echo "   ⊘ specs/ (preservado)"
 echo "   ⊘ docs/decisions/*.md (preservado)"
+echo "   ⊘ .claude/commands/cek/ (preservado — customizações do projeto)"
 
 # Atualizar manifest
 echo ""
