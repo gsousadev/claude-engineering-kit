@@ -1,0 +1,16 @@
+# Kit backup (local updates)
+.kit-backup-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log

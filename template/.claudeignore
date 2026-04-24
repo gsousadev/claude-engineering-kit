@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+vendor/
+.venv/
+venv/
+env/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+__pycache__/
+*.pyc
+.next/
+.nuxt/
+out/
+
+# Package locks (read only)
+package-lock.json
+yarn.lock
+composer.lock
+Gemfile.lock
+poetry.lock
+
+# Environment
+.env
+.env.local
+.env.*.local
+.aws/
+.ssh/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# Docker (if running locally, mount volumes instead)
+.docker/
+docker-compose.override.yml
