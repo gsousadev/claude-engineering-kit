@@ -27,6 +27,7 @@ echo "🚀 Inicializando claude-engineering-kit ($KIT_VERSION) em $PROJECT_ROOT"
 echo "📁 Criando diretórios..."
 mkdir -p "$PROJECT_ROOT/.claude/kit"
 mkdir -p "$PROJECT_ROOT/.claude/commands/cek"
+mkdir -p "$PROJECT_ROOT/.claude/skills/cek"
 mkdir -p "$PROJECT_ROOT/specs/tasks"
 mkdir -p "$PROJECT_ROOT/docs/decisions"
 
@@ -54,6 +55,10 @@ echo "✓ .claude/kit/workflow.md"
 mkdir -p "$PROJECT_ROOT/.claude/kit/commands"
 cp "$TEMP_KIT/.claude/kit/commands/"*.md "$PROJECT_ROOT/.claude/kit/commands/"
 echo "✓ .claude/kit/commands/ (templates dos commands)"
+
+mkdir -p "$PROJECT_ROOT/.claude/kit/skills/cek"
+cp "$TEMP_KIT/.claude/kit/skills/cek/SKILL.md" "$PROJECT_ROOT/.claude/kit/skills/cek/SKILL.md"
+echo "✓ .claude/kit/skills/cek/SKILL.md (template da skill /cek)"
 
 cp "$TEMP_KIT/template/docs/decisions/ADR-TEMPLATE.md" "$PROJECT_ROOT/docs/decisions/ADR-TEMPLATE.md"
 echo "✓ docs/decisions/ADR-TEMPLATE.md"
@@ -222,10 +227,24 @@ fi
 CEK_COMMANDS_DIR="$PROJECT_ROOT/.claude/commands/cek"
 GENERATED=0
 
+# Skill /cek — vai em .claude/skills/cek/SKILL.md (nunca sobrescreve)
+SKILL_DEST="$PROJECT_ROOT/.claude/skills/cek/SKILL.md"
+SKILL_TEMPLATE="$PROJECT_ROOT/.claude/kit/skills/cek/SKILL.md"
+if [ ! -f "$SKILL_DEST" ]; then
+  sed \
+    -e "s/{{PROJECT_NAME}}/$PROJECT_NAME/g" \
+    -e "s|{{TEST_COMMAND}}|$TEST_COMMAND|g" \
+    "$SKILL_TEMPLATE" > "$SKILL_DEST"
+  echo "✓ .claude/skills/cek/SKILL.md (gerada para $PROJECT_NAME)"
+  GENERATED=$((GENERATED + 1))
+else
+  echo "⊘ .claude/skills/cek/SKILL.md (já existe, preservada)"
+fi
+
+# Commands /cek:* — vão em .claude/commands/cek/ (nunca sobrescreve)
 for TEMPLATE_FILE in "$PROJECT_ROOT/.claude/kit/commands/"*.md; do
   FILENAME="$(basename "$TEMPLATE_FILE")"
   DEST="$CEK_COMMANDS_DIR/$FILENAME"
-
   if [ ! -f "$DEST" ]; then
     sed \
       -e "s/{{PROJECT_NAME}}/$PROJECT_NAME/g" \
@@ -271,7 +290,9 @@ git -C "$PROJECT_ROOT" add \
   specs/ \
   docs/decisions/ \
   .claude/commands/ \
+  .claude/skills/ \
   2>/dev/null || true
+
 
 git -C "$PROJECT_ROOT" commit -m "chore: initialize claude-engineering-kit ($KIT_VERSION)" 2>/dev/null || {
   echo "⊘ git commit (repo vazio ou sem mudanças)"
@@ -301,6 +322,7 @@ echo "  2. Revise .claude/commands/cek/ — ajuste {{TEST_COMMAND}} e convençõ
 echo "  3. git add CLAUDE.local.md .claude/commands/cek/ && git commit"
 echo ""
 echo "Commands disponíveis após customização:"
+echo "  /cek             → orquestrador principal (comece por aqui)"
 echo "  /cek:new-spec    → cria SPEC-*.md + TASKS-*.json"
 echo "  /cek:review-spec → valida spec antes de executar"
 echo "  /cek:run-spec    → executa task a task"

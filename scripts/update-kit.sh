@@ -66,6 +66,22 @@ mkdir -p "$PROJECT_ROOT/.claude/kit/commands"
 cp "$TEMP_KIT/.claude/kit/commands/"*.md "$PROJECT_ROOT/.claude/kit/commands/"
 echo "   ✓ .claude/kit/commands/ (templates — não altera .claude/commands/cek/)"
 
+mkdir -p "$PROJECT_ROOT/.claude/kit/skills/cek"
+cp "$TEMP_KIT/.claude/kit/skills/cek/SKILL.md" "$PROJECT_ROOT/.claude/kit/skills/cek/SKILL.md"
+echo "   ✓ .claude/kit/skills/cek/SKILL.md (template da skill)"
+
+# Instala skill /cek no projeto se ainda não existir
+SKILL_DEST="$PROJECT_ROOT/.claude/skills/cek/SKILL.md"
+if [ ! -f "$SKILL_DEST" ]; then
+  PROJECT_NAME="$(basename "$PROJECT_ROOT")"
+  mkdir -p "$PROJECT_ROOT/.claude/skills/cek"
+  sed -e "s/{{PROJECT_NAME}}/$PROJECT_NAME/g" \
+      "$PROJECT_ROOT/.claude/kit/skills/cek/SKILL.md" > "$SKILL_DEST"
+  echo "   ✓ .claude/skills/cek/SKILL.md (skill instalada — não existia)"
+else
+  echo "   ⊘ .claude/skills/cek/SKILL.md (preservada — customizações do projeto)"
+fi
+
 cp "$TEMP_KIT/template/docs/decisions/ADR-TEMPLATE.md" "$PROJECT_ROOT/docs/decisions/ADR-TEMPLATE.md"
 echo "   ✓ docs/decisions/ADR-TEMPLATE.md"
 
@@ -79,7 +95,8 @@ echo "   ⊘ CLAUDE.local.md (preservado — é do projeto)"
 echo "   ⊘ .claudeignore (preservado — é do projeto)"
 echo "   ⊘ specs/ (preservado)"
 echo "   ⊘ docs/decisions/*.md (preservado)"
-echo "   ⊘ .claude/commands/cek/ (preservado — customizações do projeto)"
+echo "   ⊘ .claude/commands/cek/ (preservado — customizações do projeto)
+   ⊘ .claude/skills/cek/SKILL.md (preservada se já existia)"
 
 # Atualizar manifest
 echo ""
